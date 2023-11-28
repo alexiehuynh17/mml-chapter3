@@ -7,7 +7,6 @@ import random
 import plotly.graph_objs as go
 import plotly.express as px
 import plotly.figure_factory as ff
-from st_pages import add_page_title
 
 st.set_page_config(page_title = "3.1 Norms")
 
