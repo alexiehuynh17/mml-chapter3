@@ -5,7 +5,7 @@ from matplotlib.pyplot import figure # hien thi cac so do, do thi
 from sympy import *
 from sympy.abc import x
 # from IPython.core.interactiveshell import InteractiveShell # Tuong tac voi cac o code
-from mpl_toolkits.mplot3d import Axes3D # hien thi cac so do, do thi
+# from mpl_toolkits.mplot3d import Axes3D # hien thi cac so do, do thi
 from matplotlib import cm # hien thi cac so do, do thi
 import random
 import streamlit as st
