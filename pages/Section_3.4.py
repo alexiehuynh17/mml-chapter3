@@ -1,12 +1,18 @@
 import streamlit as st
 import numpy as np # tinh toan
 import numpy.linalg as npl # tinh toan
+import matplotlib.pyplot as plt # hien thi cac so do, do thi
+from matplotlib.pyplot import figure # hien thi cac so do, do thi
 from sympy import *
 from sympy.abc import x
+from mpl_toolkits.mplot3d import Axes3D # hien thi cac so do, do thi
+from matplotlib import cm # hien thi cac so do, do thi
 import random
-import plotly.graph_objs as go
-import plotly.express as px
-import plotly.figure_factory as ff
+
+plt.rcParams[ "figure.figsize" ] = (10,10)
+origin2D = np.vstack([0,0])
+origin3D = np.vstack([0,0,0])
+scale = 10
 
 st.set_page_config(page_title = "3.4 Angles and Orthogonality") 
 
@@ -25,39 +31,21 @@ code = '''
 
 st.code(code,line_numbers=True)
 
-points = go.Scatter(
-    x=x, y=y,
-    name='cos',
-    mode='markers'
-)
-
-layout = go.Layout(
-    autosize=False,
-    width=640,
-    height=640
-)
-
-st.text("Create points object, setting layout and show figure:")
+st.text("Create figure:")
 
 code = '''
-    points = go.Scatter(
-    x=x, y=y,
-    name='cos',
-    mode='markers'
-    )
-
-    layout = go.Layout(
-        autosize=False,
-        width=640,
-        height=640
-    )
-
-    fig = go.Figure(data=[points], layout=layout)
-    fig.show()
+    plt.scatter(x, y)
+    plt.grid(alpha=.1)
+    plt.title(r"When restricted to $[0,\pi]$, then $f(w) = cos(w)$ returns a \\
+                unique number in the interval $[-1,1]$.");
 '''
 st.code(code,line_numbers=True)
-fig = go.Figure(data=[points], layout=layout)
-st.plotly_chart(fig)
+
+plt.scatter(x, y)
+plt.grid(alpha=.1)
+plt.title(r"When restricted to $[0,\pi]$, then $f(w) = cos(w)$ returns a unique number in the interval $[-1,1]$.")
+
+st.pyplot(plt)
 
 st.markdown("#### Example 3.6 (Angle between Vectors)")
 
@@ -74,7 +62,7 @@ code = '''
 
 st.code(code,line_numbers=True)
 
-st.text("Compute angle:")
+st.text("Compute angle using inner product:")
 
 x = np.vstack([1,1])
 y = np.vstack([1,2])
@@ -99,91 +87,31 @@ st.code(code,line_numbers=True)
 st.text("Figure 3.5:")
 
 code = '''
-    vector_A = go.Scatter(
-        x=[0,1], 
-        y=[0,1], 
-        marker= dict(size=10,symbol= "arrow-bar-up", 
-        angleref="previous"), 
-        name="A", 
-        mode="lines+markers")
+    plt.grid(alpha=.1)
+    plt.legend(["x","y"])
+    plt.axis([-scale/5,scale/5,-scale/5,scale/5])
+    plt.title(r"Angle of %1.2f$^\circ$ for vectors $x$ and $y$." %round(angle(cosAngle(x,y)),2))
 
-    vector_B = go.Scatter(
-        x=[0,1], 
-        y=[0,2],
-        marker= dict(size=10,symbol= "arrow-bar-up", 
-        angleref="previous", 
-        color=(255,0,0)), 
-        marker_color="rgb(255,0,0)", name="B")
-
-    layout = go.Layout(
-        autosize=False,
-        width=640,
-        height=640
-    )
-
-    fig = go.Figure(data=[vector_A, vector_B], layout=layout)
-    
-    fig.update_layout(yaxis_range=[-1,2.5])
-    fig.update_layout(xaxis_range=[-1,2.5])
-
-    fig.add_annotation(
-        x=0.75,
-        y=1,
-        xref="x",
-        yref="y",
-        text=str(round(angle(cosAngle(x,y)),2))+"\u00B0",
-        showarrow=False,
-        font=dict(
-            family="Courier New, monospace",
-            size=18,
-            color="#000000"))
-    
-    fig.show()
-    
+    plt.quiver(*origin2D, *x,scale=scale,color="lightblue", width=.005)
+    plt.quiver(*origin2D, *y,scale=scale,color="blue", width=.005)
+    plt.annotate(str(round(angle(cosAngle(x,y)),2))+r"$^\circ$",xy=(scale/50,scale/30)); 
 '''
 
 st.code(code,line_numbers=True)
 
-vector_A = go.Scatter(
-    x=[0,1], 
-    y=[0,1], 
-    marker= dict(size=10,symbol= "arrow-bar-up", 
-    angleref="previous"), 
-    name="A", 
-    mode="lines+markers")
+plt.clf()
 
-vector_B = go.Scatter(
-    x=[0,1], 
-    y=[0,2],
-    marker= dict(size=10,symbol= "arrow-bar-up", 
-    angleref="previous", 
-    color=(255,0,0)), 
-    marker_color="rgb(255,0,0)", name="B")
+plt.grid(alpha=.1)
+plt.legend(["x","y"])
+plt.axis([-scale/5,scale/5,-scale/5,scale/5])
+plt.title(r"Angle of %1.2f$^\circ$ for vectors $x$ and $y$." %round(angle(cosAngle(x,y)),2))
 
-layout = go.Layout(
-    autosize=False,
-    width=640,
-    height=640
-)
+plt.quiver(*origin2D, *x,scale=scale,color="lightblue", width=.005)
+plt.quiver(*origin2D, *y,scale=scale,color="blue", width=.005)
+plt.annotate(str(round(angle(cosAngle(x,y)),2))+r"$^\circ$",xy=(scale/50,scale/30)); 
 
-fig = go.Figure(data=[vector_A, vector_B], layout=layout)
 
-fig.update_layout(yaxis_range=[-1,2.5])
-fig.update_layout(xaxis_range=[-1,2.5])
-
-fig.add_annotation(
-    x=0.75,
-    y=1,
-    xref="x",
-    yref="y",
-    text=str(round(angle(cosAngle(x,y)),2))+"\u00B0",
-    showarrow=False,
-    font=dict(
-        family="Courier New, monospace",
-        size=18,
-        color="#000000"))
-    
-st.plotly_chart(fig)
+st.pyplot(plt)
 
 st.markdown("#### Example 3.7 (Orthogonal Vectors)")
 
@@ -204,95 +132,34 @@ code = '''
 '''
 
 st.code(code,line_numbers=True)
-
+resultXY = angle(cosAngle(x,y)) # 90.0
 st.text("Figure 3.6:")
 
 code = '''
-    vector_A = go.Scatter(
-        x=[0,1], 
-        y=[0,1], 
-        marker= dict(size=10,symbol= "arrow-bar-up", 
-        angleref="previous"), 
-        name="A", 
-        mode="lines+markers")
+    plt.grid(alpha=.1)
+    plt.legend(["x","y"])
+    plt.axis([-scale/5,scale/5,-scale/5,scale/5])
+    plt.title(r"Angle of %1.2f$^\circ$ for vectors $x$ and $y$." %round(angle(cosAngle(x,y)),2))
 
-    vector_B = go.Scatter(
-        x=[0,-1], 
-        y=[0,1],
-        marker= dict(size=10,symbol= "arrow-bar-up", 
-        angleref="previous", 
-        color=(255,0,0)), 
-        marker_color="rgb(255,0,0)", name="B")
-
-    layout = go.Layout(
-        autosize=False,
-        width=640,
-        height=640
-    )
-
-    fig = go.Figure(data=[vector_A, vector_B], layout=layout)
-    
-    fig.update_layout(yaxis_range=[-2.5,2.5])
-    fig.update_layout(xaxis_range=[-2.5,2.5])
-
-    fig.add_annotation(
-        x=0,
-        y=0.3,
-        xref="x",
-        yref="y",
-        text=str(round(angle(cosAngle(x,y)),2))+"\u00B0",
-        showarrow=False,
-        font=dict(
-            family="Courier New, monospace",
-            size=18,
-            color="#000000"))
-    
-    fig.show()
-    
+    plt.quiver(*origin2D, *x,scale=scale,color="lightblue", width=.005)
+    plt.quiver(*origin2D, *y,scale=scale,color="blue", width=.005)
+    plt.annotate(str(round(angle(cosAngle(x,y)),2))+r"$^\circ$",xy=origin2D);
 '''
 
 st.code(code,line_numbers=True)
 
-vector_A = go.Scatter(
-    x=[0,1], 
-    y=[0,1], 
-    marker= dict(size=10,symbol= "arrow-bar-up", 
-    angleref="previous"), 
-    name="A", 
-    mode="lines+markers")
+plt.clf()
+plt.grid(alpha=.1)
+plt.legend(["x","y"])
+plt.axis([-scale/5,scale/5,-scale/5,scale/5])
+plt.title(r"Angle of %1.2f$^\circ$ for vectors $x$ and $y$." %round(angle(cosAngle(x,y)),2))
 
-vector_B = go.Scatter(
-    x=[0,-1], 
-    y=[0,1],
-    marker= dict(size=10,symbol= "arrow-bar-up", 
-    angleref="previous", 
-    color=(255,0,0)), 
-    marker_color="rgb(255,0,0)", name="B")
+plt.quiver(*origin2D, *x,scale=scale,color="lightblue", width=.005)
+plt.quiver(*origin2D, *y,scale=scale,color="blue", width=.005)
+plt.annotate(str(round(angle(cosAngle(x,y)),2))+r"$^\circ$",xy=origin2D);
 
-layout = go.Layout(
-    autosize=False,
-    width=640,
-    height=640
-)
+st.pyplot(plt)
 
-fig = go.Figure(data=[vector_A, vector_B], layout=layout)
-
-fig.update_layout(yaxis_range=[-2.5,2.5])
-fig.update_layout(xaxis_range=[-2.5,2.5])
-
-fig.add_annotation(
-    x=0,
-    y=0.3,
-    xref="x",
-    yref="y",
-    text=str(round(angle(cosAngle(x,y)),2))+"\u00B0",
-    showarrow=False,
-    font=dict(
-        family="Courier New, monospace",
-        size=18,
-        color="#000000"))
-
-st.plotly_chart(fig)
 
 st.text("By changing how inner is induced, such as with the matrix:")
 st.latex(r'''
@@ -301,7 +168,7 @@ st.latex(r'''
                 0 & 1
                 \end{bmatrix}
          ''')
-st.text("we find the vectors are no longer orthogonal, despite their being orthogonal \nwith respect to another inner product.")
+st.text("We find the vectors are no longer orthogonal, despite their being orthogonal \nwith respect to another inner product.")
 
 code = '''
     x = np.vstack([1,1])

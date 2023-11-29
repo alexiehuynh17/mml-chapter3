@@ -1,14 +1,20 @@
 import streamlit as st
 import numpy as np # tinh toan
 import numpy.linalg as npl # tinh toan
+import matplotlib.pyplot as plt # hien thi cac so do, do thi
+from matplotlib.pyplot import figure # hien thi cac so do, do thi
 from sympy import *
 from sympy.abc import x
+from mpl_toolkits.mplot3d import Axes3D # hien thi cac so do, do thi
+from matplotlib import cm # hien thi cac so do, do thi
 import random
-import plotly.graph_objs as go
-import plotly.express as px
-import plotly.figure_factory as ff
 
-st.set_page_config(page_title = "3.8 Orthonormal Basis")
+plt.rcParams[ "figure.figsize" ] = (10,10)
+origin2D = np.vstack([0,0])
+origin3D = np.vstack([0,0,0])
+scale = 10
+
+st.set_page_config(page_title = "3.5 Orthonormal Basis")
 
 st.header("Orthonormal Basis")  
 
@@ -25,96 +31,40 @@ angle = lambda cos: np.arccos(cos)*(180/np.pi)
 b1 = np.vstack([1/np.sqrt(2),1/np.sqrt(2)])
 b2 = np.vstack([1/np.sqrt(2),-1/np.sqrt(2)])
 
+angleb1b2 = angle(cosAngle(b1,b2))
+
 code = ''' 
     cosAngle = lambda x, y: (np.dot(x.T,y)/np.sqrt(np.dot(
                                 np.dot(x.T,x),
                                 np.dot(y.T,y))
                             ))[0][0]
-angle = lambda cos: np.arccos(cos)*(180/np.pi)
+    angle = lambda cos: np.arccos(cos)*(180/np.pi)
 
-b1 = np.vstack([1/np.sqrt(2),1/np.sqrt(2)])
-b2 = np.vstack([1/np.sqrt(2),-1/np.sqrt(2)])
+    plt.grid(alpha=.1)
+    b1 = np.vstack([1,1])*(1/np.sqrt(2))
+    b2 = np.vstack([1,-1])*(1/np.sqrt(2))
+    plt.title(r"Orthonormal basis since: $angle(dot(b_1^T,b_2))$ = %1.2f," %angleb1b2)
 
-vectorB1 = go.Scatter(
-    x=[0,1/np.sqrt(2)], 
-    y=[0,1/np.sqrt(2)], 
-    marker= dict(
-        size=10,
-        symbol= "arrow-bar-up", 
-        angleref="previous"), 
-    name="b1",
-    mode="lines+markers")
-
-vectorB2 = go.Scatter(
-    x=[0,1/np.sqrt(2)], 
-    y=[0,-1/np.sqrt(2)],
-    marker= dict(
-        size=10,
-        symbol= "arrow-bar-up", 
-        angleref="previous", 
-        color=(255,0,0)), 
-    marker_color="rgb(255,0,0)",
-    name="b2")
-
-layout = go.Layout(
-    autosize=False,
-    width=640,
-    height=640
-)
-    
-fig= go.Figure(data=[vectorB1, vectorB2], layout=layout)
-fig.update_layout(yaxis_range=[-1,1.5])
-fig.update_layout(xaxis_range=[-1.5,1.5])
-
-fig.add_annotation(x=0.3,y=0,
-        xref="x",
-        yref="y",
-        text=str(round(angle(cosAngle(b1,b2)),2))+"\u00B0",
-        showarrow=False,
-        font=dict(
-            family="Courier New, monospace",
-            size=18,
-            color="#000000"
-            ))
-
-fig.show()
+    plt.quiver(*origin2D,*b1,scale=scale, color = "lightblue")
+    plt.quiver(*origin2D,*b2,scale=scale, color = "gold")
+    plt.legend([r"$b_1$",r"$b_2$"])
 '''
 
-st.code(code,line_numbers=True)
+st.code(code, line_numbers=True)
 
-vectorB1 = go.Scatter(
-    x=[0,1/np.sqrt(2)], 
-    y=[0,1/np.sqrt(2)], 
-    marker= dict(size=10,symbol= "arrow-bar-up", angleref="previous"), 
-    name="b1",
-    mode="lines+markers")
+cosAngle = lambda x, y: (np.dot(x.T,y)/np.sqrt(np.dot(
+                                np.dot(x.T,x),
+                                np.dot(y.T,y))
+                            ))[0][0]
+angle = lambda cos: np.arccos(cos)*(180/np.pi)
 
-vectorB2 = go.Scatter(
-    x=[0,1/np.sqrt(2)], 
-    y=[0,-1/np.sqrt(2)],
-    marker= dict(size=10,symbol= "arrow-bar-up", angleref="previous", color=(255,0,0)), 
-    marker_color="rgb(255,0,0)",
-    name="b2")
+plt.grid(alpha=.1)
+b1 = np.vstack([1,1])*(1/np.sqrt(2))
+b2 = np.vstack([1,-1])*(1/np.sqrt(2))
+plt.title(r"Orthonormal basis since: $angle(dot(b_1^T,b_2))$ = %1.2f," %angleb1b2)
 
-layout = go.Layout(
-    autosize=False,
-    width=640,
-    height=640
-)
+plt.quiver(*origin2D,*b1,scale=scale, color = "lightblue")
+plt.quiver(*origin2D,*b2,scale=scale, color = "gold")
+plt.legend([r"$b_1$",r"$b_2$"])
 
-fig= go.Figure(data=[vectorB1, vectorB2], layout=layout)
-fig.update_layout(yaxis_range=[-1,1.5])
-fig.update_layout(xaxis_range=[-1.5,1.5])
-
-fig.add_annotation(x=0.3,y=0,
-        xref="x",
-        yref="y",
-        text=str(round(angle(cosAngle(b1,b2)),2))+"\u00B0",
-        showarrow=False,
-        font=dict(
-            family="Courier New, monospace",
-            size=18,
-            color="#000000"
-            ))
-
-st.plotly_chart(fig)
+st.pyplot(plt)

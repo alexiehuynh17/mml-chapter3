@@ -1,12 +1,19 @@
 import streamlit as st
 import numpy as np # tinh toan
 import numpy.linalg as npl # tinh toan
+import matplotlib.pyplot as plt # hien thi cac so do, do thi
+from matplotlib.pyplot import figure # hien thi cac so do, do thi
 from sympy import *
 from sympy.abc import x
+from mpl_toolkits.mplot3d import Axes3D # hien thi cac so do, do thi
+from matplotlib import cm # hien thi cac so do, do thi
 import random
-import plotly.graph_objs as go
-import plotly.express as px
-import plotly.figure_factory as ff
+
+
+plt.rcParams[ "figure.figsize" ] = (10,10)
+origin2D = np.vstack([0,0])
+origin3D = np.vstack([0,0,0])
+scale = 10
 
 st.set_page_config(page_title = "3.1 Norms")
 
@@ -82,74 +89,26 @@ code = '''
 
 st.code(code, language='python', line_numbers=True)
 
-st.text("Create L1 and L2 data point object:")
+st.text("Data and figure initialization:")
 
 code = '''
-    l1_object = go.Scatter(
-        x=l1normData[:,0], 
-        y=l1normData[:, 1],
-        name='Manhattan',
-        mode='markers',
-        marker_color='rgb(0,0,255)
-    )
+    plt.axis([-scale/5,scale/5,-scale/5,scale/5])
+    plt.grid(alpha=.1)
+    plt.title("L1, Manhattan Norm, in red and L2, Euclidean Norm, in green.")
 
-    l2_object = go.Scatter(
-        x=l2normData[:,0], 
-        y=l2normData[:, 1],
-        name='Euclid',
-        mode='markers',
-        marker_color='rgb(255,0,0)'
-    )
+    plt.scatter(l1normData[:,0],l1normData[:,1],s=.5,color="r")
+    plt.scatter(l2normData[:,0],l2normData[:,1],s=.5,color="g")
 '''
 st.code(code, language="python", line_numbers=True)
 
-data1 = go.Scatter(
-    x=l1normData[:,0], 
-    y=l1normData[:, 1],
-    name='Manhattan',
-    mode='markers'
-)
-data2 = go.Scatter(
-    x=l2normData[:,0], y=l2normData[:, 1],
-    name='Euclid',
-    mode='markers',
-    marker_color='rgb(255,0,0)'
-)
+plt.axis([-scale/5,scale/5,-scale/5,scale/5])
+plt.grid(alpha=.1)
+plt.title("L1, Manhattan Norm, in red and L2, Euclidean Norm, in green.")
+# Data and figure initialization.
 
-st.text("Setting layout for the same x-axis and y-axis:")
-
-code = '''
-    layout = go.Layout(
-        autosize=False,
-        width=800,
-        height=800,
-        xaxis=go.layout.XAxis(linecolor="black", linewidth=1, mirror=True),
-        yaxis=go.layout.YAxis(linecolor="black", linewidth=1, mirror=True)
-    )
-'''
-st.code(code,language="python", line_numbers=True)
-
-st.text("Create figure object and show:")
-
-code = '''
-    fig = go.Figure(data=data, layout=layout)
-    fig.show()
-'''
-
-st.code(code,language="python", line_numbers=True)
-
-data = [data1, data2]
-
-layout = go.Layout(
-    autosize=False,
-    width=800,
-    height=800,
-    xaxis=go.layout.XAxis(linecolor="black", linewidth=1, mirror=True),
-    yaxis=go.layout.YAxis(linecolor="black", linewidth=1, mirror=True)
-)
-# margin=go.layout.Margin(l=50, r=50, b=100, t=100, pad=10),
-fig = go.Figure(data=data, layout=layout)
+plt.scatter(l1normData[:,0],l1normData[:,1],s=.5,color="r")
+plt.scatter(l2normData[:,0],l2normData[:,1],s=.5,color="g")
 
 st.text("\n")
 
-st.plotly_chart(fig)
+st.pyplot(plt)
