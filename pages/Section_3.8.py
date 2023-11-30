@@ -785,7 +785,6 @@ x1 = np.array([3,.5])
 val = x0+lam*x1
 x1s = np.vstack([l*x1 for l in np.linspace(-4,4,25)]) # Grey lines
 # Data setup.
-print(x1s)
 # Plotting vectors.
 
 
