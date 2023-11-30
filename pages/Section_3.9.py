@@ -21,17 +21,17 @@ st.header("Rotations")
 st.markdown("Figure 3.14:")
 
 code = '''
-    plt.grid(visible=True)
-    plt.axis([-2.5,2.5,-2.5,2.5])
-    colors = np.vstack([[i,0,j] for i in np.linspace(0,1,20) for j in np.linspace(1,0,20)])
-    plt.title("Figure 3.14 A rotation rotates objects in a plane about the origin. \n If the rotation angle is positive, we rotate counterclockwise.", size = 15)
+plt.grid(visible=True)
+plt.axis([-2.5,2.5,-2.5,2.5])
+colors = np.vstack([[i,0,j] for i in np.linspace(0,1,20) for j in np.linspace(1,0,20)])
+plt.title("Figure 3.14 A rotation rotates objects in a plane about the origin. If the rotation angle is positive, we rotate counterclockwise.", size = 15)
 
-    R = np.vstack([[-.38,-.92],[.92,-.38]]) # Rotation matrix.
-    original = np.vstack([[i,j] for i in np.linspace(.25,1,20) for j in np.linspace(.25,1,20)]) # Original coordinates.
-    rotated = np.dot(original,R.T) # Rotated coordinates. # Rotation step.
+R = np.vstack([[-.38,-.92],[.92,-.38]]) # Rotation matrix.
+original = np.vstack([[i,j] for i in np.linspace(.25,1,20) for j in np.linspace(.25,1,20)]) # Original coordinates.
+rotated = np.dot(original,R.T) # Rotated coordinates. # Rotation step.
 
-    plt.scatter(original[:,0],original[:,1], c = colors)
-    plt.scatter(rotated[:,0],rotated[:,1], c = colors);
+plt.scatter(original[:,0],original[:,1], c = colors)
+plt.scatter(rotated[:,0],rotated[:,1], c = colors)
 '''
 
 st.code(code, line_numbers=True)

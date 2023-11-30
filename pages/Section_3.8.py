@@ -133,20 +133,20 @@ cosAngle = lambda x, y: (np.dot(x.T,y)/np.sqrt(np.dot(
 angle = lambda cos: np.arccos(cos)*(180/np.pi)
 
 code = '''
-    plt.axis([-scale/2,scale/2,-scale/2,scale/2])
-    plt.suptitle(r"(a) Projection of $x \in \mathbb{R}^2$ onto a subspace $U$ with basis vector $b$.",size=15)
-    plt.title("Displacement of %1.1f." %npl.norm(v3))
-    plt.grid(alpha=.1)
+plt.axis([-scale/2,scale/2,-scale/2,scale/2])
+plt.suptitle(r"(a) Projection of $x \in \mathbb{R}^2$ onto a subspace $U$ with basis vector $b$.",size=15)
+plt.title("Displacement of %1.1f." %npl.norm(v3))
+plt.grid(alpha=.1)
 
-    # Plotting projection.
-    plt.quiver(*origin2D, *v1, scale=scale, color = "k")
-    plt.quiver(*origin2D, *v2, scale=scale, color = "orange")
-    plt.scatter(*v3,color="k")
-    plt.quiver(*origin2D,*v3,scale=scale, width = .005,color="blue")
-    plt.quiver(*v1,*v4,scale=scale,width=.002,color="red")
-    # Plotting projection.
+# Plotting projection.
+plt.quiver(*origin2D, *v1, scale=scale, color = "k")
+plt.quiver(*origin2D, *v2, scale=scale, color = "orange")
+plt.scatter(*v3,color="k")
+plt.quiver(*origin2D,*v3,scale=scale, width = .005,color="blue")
+plt.quiver(*v1,*v4,scale=scale,width=.002,color="red")
+# Plotting projection.
 
-    plt.legend(["x","U",r"$\pi_U(x)$","b"])
+plt.legend(["x","U",r"$\pi_U(x)$","b"])
 '''
 
 st.code(code,line_numbers=True)
@@ -219,20 +219,20 @@ v4 = v3.ravel()-v2.ravel()
 st.markdown("Figure setup")
 
 code = '''
-    # Figure setup.
-    plt.axis([-scale/2,scale/2,-scale/2,scale/2])
-    plt.grid(alpha=.1)
-    plt.scatter(l2normData[:,0],l2normData[:,1],s=.5,color="k") # Circle data from prior figure on the L2 norm.
-    plt.title("(b) Projection of a two-dimensional vector (black) with ||x|| = 1 \n onto a one-dimensional subspace spanned by b (orange)." + " \n Projection magnitude %1.1f." %npl.norm(v3));
-    # Figure setup.
+# Figure setup.
+plt.axis([-scale/2,scale/2,-scale/2,scale/2])
+plt.grid(alpha=.1)
+plt.scatter(l2normData[:,0],l2normData[:,1],s=.5,color="k") # Circle data from prior figure on the L2 norm.
+plt.title("(b) Projection of a two-dimensional vector (black) with ||x|| = 1 \n onto a one-dimensional subspace spanned by b (orange)." + " \n Projection magnitude %1.1f." %npl.norm(v3));
+# Figure setup.
 
-    # Projection plotting.
-    plt.quiver(*origin2D, *v1,scale=scale, color="orange", width=.005)
-    plt.quiver(*origin2D, *v2,scale=scale, color="k", width=.005)
-    plt.annotate("w = " + str(round(angle(cosAngle(v1,v2)),2))+r"$^\circ$",xy=origin2D-.2, size = 8)
-    plt.quiver(*origin2D,*v3,scale=scale,width=.002,color="red")
-    plt.quiver(*v2,*v4,scale=scale,width=.002,color="blue");
-    # Projection plotting.
+# Projection plotting.
+plt.quiver(*origin2D, *v1,scale=scale, color="orange", width=.005)
+plt.quiver(*origin2D, *v2,scale=scale, color="k", width=.005)
+plt.annotate("w = " + str(round(angle(cosAngle(v1,v2)),2))+r"$^\circ$",xy=origin2D-.2, size = 8)
+plt.quiver(*origin2D,*v3,scale=scale,width=.002,color="red")
+plt.quiver(*v2,*v4,scale=scale,width=.002,color="blue");
+# Projection plotting.
 '''
 
 st.code(code,line_numbers=True)
