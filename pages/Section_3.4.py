@@ -36,8 +36,7 @@ st.markdown("Create figure:")
 code = '''
     plt.scatter(x, y)
     plt.grid(alpha=.1)
-    plt.title(r"When restricted to $[0,\pi]$, then $f(w) = cos(w)$ returns a \\
-                unique number in the interval $[-1,1]$.");
+    plt.title(r"When restricted to $[0,\pi]$, then $f(w) = cos(w)$ returns a unique number in the interval $[-1,1]$.");
 '''
 st.code(code,line_numbers=True)
 
