@@ -41,7 +41,7 @@ st.markdown("2. For the $l_2$ norm, we are selecting $x_0$ and $x_1$ such that t
 st.markdown("\n")
 st.markdown("##### Plot $l_1$ and $l_2$ norm")
 
-st.text("First we create set of data point:")
+st.markdown("First we create set of data point:")
 
 code = '''
     xRight = np.linspace(0,1,50)
@@ -49,7 +49,7 @@ code = '''
     '''
 st.code(code, language='python', line_numbers=True)
 
-st.text("Manhattan: Building L1 (x,y) coordinates for 4 quadrants, where y in the first is \nof the form 1-x")
+st.markdown("Manhattan: Building L1 (x,y) coordinates for 4 quadrants, where y in the first is \nof the form 1-x")
 
 code = '''
     l1normData = np.hstack([
@@ -61,7 +61,7 @@ code = '''
     '''
 st.code(code, language='python', line_numbers=True)
 
-st.text("Euclidean: Building L1 (x,y) coordinates for 4 quadrants, where y in the first is \nof the form sqrt(1-x**2)")
+st.markdown("Euclidean: Building L1 (x,y) coordinates for 4 quadrants, where y in the first is \nof the form sqrt(1-x**2)")
 
 
 xRight = np.linspace(0,1,50)
@@ -89,7 +89,7 @@ code = '''
 
 st.code(code, language='python', line_numbers=True)
 
-st.text("Data and figure initialization:")
+st.markdown("Data and figure initialization:")
 
 code = '''
     plt.axis([-scale/5,scale/5,-scale/5,scale/5])

@@ -3,3 +3,4 @@ numpy
 sympy
 mpld3
 plotly
+pillow

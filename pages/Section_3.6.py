@@ -20,7 +20,7 @@ st.header("Orthonormal Complement")
 
 st.markdown(r"Any plane in $\mathbb{R}^3$ can be described by some vector orthogonal to it, \nthis vector is said to span it's orthogonal complement, and is known as the normal vector of a plane.")
 
-st.text("Figure 3.7:")
+st.markdown("Figure 3.7:")
 
 
 code = '''

@@ -21,9 +21,9 @@ st.header("Angles and Orthogonality")
 x = np.linspace(0,np.pi,100)
 y = np.cos(x)
 
-st.text("Figure 3.4")
+st.markdown("Figure 3.4")
 
-st.text('Create set of data point with y = cos(x):')
+st.markdown('Create set of data point with y = cos(x):')
 code = '''
     x = np.linspace(0,np.pi,100)
     y = np.cos(x)
@@ -31,7 +31,7 @@ code = '''
 
 st.code(code,line_numbers=True)
 
-st.text("Create figure:")
+st.markdown("Create figure:")
 
 code = '''
     plt.scatter(x, y)
@@ -53,7 +53,7 @@ st.latex(r'''
     \cos\omega = \frac{\langle x,y\rangle}{\sqrt{\langle x,x\rangle \langle y,y\rangle}}=\frac{x^{\top}y}{\sqrt{x^{\top}xy^{\top}y}}
 ''')
 
-st.text("Create two vectors x and y:")
+st.markdown("Create two vectors x and y:")
 
 code = '''
     x = np.vstack([1,1])
@@ -62,7 +62,7 @@ code = '''
 
 st.code(code,line_numbers=True)
 
-st.text("Compute angle using inner product:")
+st.markdown("Compute angle using inner product:")
 
 x = np.vstack([1,1])
 y = np.vstack([1,2])
@@ -72,6 +72,8 @@ cosAngle = lambda x, y: (np.dot(x.T,y)/np.sqrt(np.dot(
                             ))[0][0]
 angle = lambda cos: np.arccos(cos)*(180/np.pi)
 
+angleXY = angle(cosAngle(x,y))
+
 code = '''
     cosAngle = lambda x, y: (np.dot(x.T,y)/np.sqrt(np.dot(
                                 np.dot(x.T,x),
@@ -79,12 +81,18 @@ code = '''
                             ))[0][0]
     angle = lambda cos: np.arccos(cos)*(180/np.pi)
 
-    resultXY = angle(cosAngle(x,y)) # 18.434948822922017
+    angleXY = angle(cosAngle(x,y))
 '''
 
 st.code(code,line_numbers=True)
 
-st.text("Figure 3.5:")
+code = f'''
+    {angleXY}
+'''
+
+st.code(code)
+
+st.markdown("Figure 3.5:")
 
 code = '''
     plt.grid(alpha=.1)
@@ -115,7 +123,7 @@ st.pyplot(plt)
 
 st.markdown("#### Example 3.7 (Orthogonal Vectors)")
 
-st.text("Create two vectors x and y:")
+st.markdown("Create two vectors x and y:")
 
 code = '''
     x = np.vstack([1,1])
@@ -123,17 +131,22 @@ code = '''
 '''
 x = np.vstack([1,1])
 y = np.vstack([-1,1])
+angleXY = angle(cosAngle(x,y))
 st.code(code,line_numbers=True)
-
-st.text("Compute angle:")
+st.markdown("Compute angle:")
 
 code = '''
-    resultXY = angle(cosAngle(x,y)) # 90.0
+    angleXY = angle(cosAngle(x,y))
 '''
 
 st.code(code,line_numbers=True)
-resultXY = angle(cosAngle(x,y)) # 90.0
-st.text("Figure 3.6:")
+
+code = f'''
+    {angleXY}
+'''
+
+st.code(code)
+st.markdown("Figure 3.6:")
 
 code = '''
     plt.grid(alpha=.1)
@@ -143,7 +156,7 @@ code = '''
 
     plt.quiver(*origin2D, *x,scale=scale,color="lightblue", width=.005)
     plt.quiver(*origin2D, *y,scale=scale,color="blue", width=.005)
-    plt.annotate(str(round(angle(cosAngle(x,y)),2))+r"$^\circ$",xy=origin2D);
+    plt.annotate(str(round(angleXY),2))+r"$^\circ$",xy=origin2D);
 '''
 
 st.code(code,line_numbers=True)
@@ -156,19 +169,19 @@ plt.title(r"Angle of %1.2f$^\circ$ for vectors $x$ and $y$." %round(angle(cosAng
 
 plt.quiver(*origin2D, *x,scale=scale,color="lightblue", width=.005)
 plt.quiver(*origin2D, *y,scale=scale,color="blue", width=.005)
-plt.annotate(str(round(angle(cosAngle(x,y)),2))+r"$^\circ$",xy=origin2D);
+plt.annotate(str(round(angleXY,2))+r"$^\circ$",xy=origin2D);
 
 st.pyplot(plt)
 
 
-st.text("By changing how inner is induced, such as with the matrix:")
+st.markdown("By changing how inner is induced, such as with the matrix:")
 st.latex(r'''
             \begin{bmatrix}
                 2 & 0\\
                 0 & 1
                 \end{bmatrix}
          ''')
-st.text("We find the vectors are no longer orthogonal, despite their being orthogonal \nwith respect to another inner product.")
+st.markdown("We find the vectors are no longer orthogonal, despite their being orthogonal \nwith respect to another inner product.")
 
 code = '''
     x = np.vstack([1,1])

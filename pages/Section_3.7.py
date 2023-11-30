@@ -18,13 +18,13 @@ st.set_page_config(page_title = "3.7 Inner Product of Functions")
 
 st.header("Inner Product of Functions")  
 
-st.text("An inner product of two functions u and v mapping from  R  to  R , can be defined as the following.")
+st.markdown("An inner product of two functions u and v mapping from  R  to  R , can be defined as the following.")
 
 st.latex(r'''
     \langle u, v \rangle := \int^b_au(x)v(x)dx
 ''')
 
-st.text("Example 3.9 (Inner Product of Functions)")
+st.markdown("Example 3.9 (Inner Product of Functions)")
 
 st.latex(r'''
     u = sin(x)
@@ -35,9 +35,9 @@ st.latex(r'''
 
 st.latex(r'''f(x)=u(x)v(x)''')
 
-st.text("Figure 3.8")
+st.markdown("Figure 3.8")
 
-st.text("Create x and y:")
+st.markdown("Create x and y:")
 
 code = '''
     x = np.linspace(-np.pi,np.pi,100)
@@ -49,7 +49,7 @@ st.code(code,line_numbers=True)
 x = np.linspace(-np.pi,np.pi,100)
 y = lambda x: np.sin(x)*np.cos(x)
 
-st.text("Figure setup:")
+st.markdown("Figure setup:")
 
 code = '''
     plt.plot(x,y(x))
@@ -64,7 +64,7 @@ plt.title("sin(x)cos(x)")
 
 st.pyplot(plt)
 
-st.text("This function is odd, f(-x) = -f(x), so the integral from -_ to _ will evaluate \nto 0, thus sine and cosine are orthogonal.")
+st.markdown("This function is odd, f(-x) = -f(x), so the integral from -_ to _ will evaluate \nto 0, thus sine and cosine are orthogonal.")
 
 code = '''
     y(-2), -y(2)
@@ -73,7 +73,7 @@ code = '''
 
 st.code(code,line_numbers=True)
 
-st.text("An integration of the function sin(x)cos(x) with respect to x, over -pi and pi, \nas stated above, evaluates to 0.")
+st.markdown("An integration of the function sin(x)cos(x) with respect to x, over -pi and pi, \nas stated above, evaluates to 0.")
 
 code = '''
     symbX = Symbol("x")
@@ -89,11 +89,11 @@ code = '''
 st.code(code,line_numbers=True) 
 
 
-st.text("It also holds that the collection of functions")
+st.markdown("It also holds that the collection of functions")
 
 st.latex(r'''{1,cos(x)...cos(n\times x)}''')
 
-st.text("is orthogonal if we integrate from  −π  to  π , i.e. any pair are orthogonal.")
+st.markdown("is orthogonal if we integrate from  −π  to  π , i.e. any pair are orthogonal.")
 code = '''
     integrate(cos(symbX)*cos(3*symbX),(symbX,-pi,pi)) # 0
 '''
