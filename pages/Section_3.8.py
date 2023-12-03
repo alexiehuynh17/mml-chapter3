@@ -17,7 +17,7 @@ scale = 10
 
 st.set_page_config(page_title = "3.8 Orthogonal Projections")
 
-st.header("3.8 Orthogonal Projections")
+st.header("Orthogonal Projections")
 
 st.markdown("This section begins with an implementation, and procedes with an explanation and reimplementation.")
 
