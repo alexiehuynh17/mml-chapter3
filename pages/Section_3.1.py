@@ -61,7 +61,7 @@ code = '''
     '''
 st.code(code, language='python', line_numbers=True)
 
-st.markdown("Euclidean: Building L1 (x,y) coordinates for 4 quadrants, where y in the first is \nof the form sqrt(1-x**2)")
+st.markdown("Euclidean: Building L2 (x,y) coordinates for 4 quadrants, where y in the first is \nof the form sqrt(1-x**2)")
 
 
 xRight = np.linspace(0,1,50)

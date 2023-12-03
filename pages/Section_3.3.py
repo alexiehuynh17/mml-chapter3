@@ -23,7 +23,7 @@ code = '''
 x0 = np.vstack([1,1])
 st.code(code,line_numbers=True)
 
-st.markdown("Compute length uing dot product and inner product")
+st.markdown("Compute length using dot product and inner product")
 code = '''
     dotLength = np.sqrt(np.dot(x0.T,x0)) 
     innerLenght = x0[0]*x0[0] - (x0[0]*x0[1]+x0[1]*x0[0])+2*x0[1]*x0[1]
