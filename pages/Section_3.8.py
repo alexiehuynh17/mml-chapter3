@@ -17,17 +17,21 @@ scale = 10
 
 st.set_page_config(page_title = "3.8 Orthogonal Projections")
 
-st.text("This section begins with an implementation, and procedes with an explanation and reimplementation.")
+st.header("3.8 Orthogonal Projections")
 
-st.text("Figure 3.9")
+st.markdown("This section begins with an implementation, and procedes with an explanation and reimplementation.")
 
-st.text("Initializing data and using least squares regression as fit line:")
+st.markdown("Figure 3.9")
+
+st.markdown("Initializing data and using least squares regression as fit line:")
 
 code = '''
     xs = np.vstack([-3.2,-2.2,-2,-1.7,-1.7,-1.5,-1.3,-.4,-.3,0,.5,.6,.8,1,1.1,1.2,1.3,1.7,2.3,3.2])
     ys = np.vstack(np.random.normal(0,.8,len(xs)))
     points = np.hstack([xs,ys])
     lsq = npl.lstsq(points,np.random.randn(20), rcond=-1)[0]
+
+st.header("ndom.randn(20), rcond=-1)[")
 
     posPts = [p for p in points if p[0]>=0] # Splitting into positive and negative to keep a 0,0 origin.
     negPts = [p for p in points if p[0]<0]
@@ -48,7 +52,7 @@ maxNeg = np.hstack([xs[0],[xs*(lsq[0]/lsq[1])][0][0]]) # -Line for data to proje
 maxPos = np.hstack([xs[::-1][0],[xs*(lsq[0]/lsq[1])][0][::-1][0]]) # +Line for data to project onto.
 
 
-st.text("Figure setup:")
+st.markdown("Figure setup:")
 
 code = '''
     plt.axis([-4,4,-4,4])
@@ -102,7 +106,7 @@ plt.title("Orthogonal projection of a two-dimensional dataset onto a one-dimensi
 
 st.pyplot(plt)
 
-st.text("Figure 3.10: Examples of projections onto one-dimensional subspaces.")
+st.markdown("Figure 3.10: Examples of projections onto one-dimensional subspaces.")
 
 code = '''
     v1 = np.vstack([1,2])
@@ -124,7 +128,7 @@ projec = lambda v1,v2: (np.dot(v2.T,v1.T)/npl.norm(v1.T)**2) * v2 # v2 * (dot(v1
 v3 = projec(v1.ravel(),v2.ravel()) # Projection step.
 v4 = v3.ravel() - v1.ravel()
 
-st.text("Figure setup:")
+st.markdown("Figure setup:")
 
 cosAngle = lambda x, y: (np.dot(x.T,y)/np.sqrt(np.dot(
                                 np.dot(x.T,x),
