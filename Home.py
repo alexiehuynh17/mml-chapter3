@@ -18,3 +18,11 @@ st.markdown("<div style=\"text-align: justify\"> In this chapter, we will add so
 image = Image.open('pages/images/ag_chapter3.png')
 
 st.image(image, caption='A mind map of the concepts introduced in this chapter, along with when they are used in other parts of the book.')
+
+st.markdown("## This project will use the following packages:")
+st.markdown("- **streamlit**: an open-source Python framework for machine learning and data science teams. Create interactive data apps in minutes.")
+st.markdown("- **numpy**: a library for the Python programming language, adding support for large, multi-dimensional arrays and matrices, along with a large collection of high-level mathematical functions to operate on these arrays.")
+st.markdown("- **matplotlib**: a plotting library for the Python programming language and its numerical mathematics extension NumPy.")
+st.markdown("- **sympy**: an open-source Python library for symbolic computation. It provides computer algebra capabilities either as a standalone application, as a library to other applications, or live on the web as SymPy Live or SymPy Gamma.")
+st.markdown("- **mpl_toolkits.mplot3d**: provides some basic 3D plotting (scatter, surf, line, mesh) tools. Not the fastest or feature complete 3D library out there, but ships with matplotlib and thus may be a lighter weight solution for some use cases.")
+st.markdown("- **random**: This module implements pseudo-random number generators for various distributions. For integers, there is uniform selection from a range.")
